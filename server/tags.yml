@@ -1,0 +1,19 @@
+PV001:
+  description: "PV001"
+  function_name: "PV001"
+  greaterThan: 0
+  lessThan: 100
+  type: float
+  unit: "V"
+PV002: 
+  description: "PV002"
+  greaterThan: 90
+  lessThan: 100
+  type: float
+  unit: "V"
+PV003:
+  description: "PV003"
+  greaterThan: 50
+  lessThan: 50
+  type: float
+  unit: "V"
