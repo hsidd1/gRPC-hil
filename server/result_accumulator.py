@@ -14,9 +14,9 @@ class ResultAccumulator:
         try:
             is_passing = self.tag_db[tag_id].is_passing(value)
             self.tag_submissions[tag_id] = value
-            return is_passing
+            return is_passing, None
         except KeyError as e:
-            return e
+            return False, e
     
     def trigger_pytest(self):
         for tag_id, tag in self.tag_db:
@@ -37,17 +37,20 @@ class ResultAccumulator:
                         # unique entries only for arrays, not dicts (idk why)
                         return
 
-                    self.tag_db[tag_id] = Tag(
-                        description=tag_info["description"],
-                        comp_op=tag_info["compareOp"],
-                        type=tag_info["type"],
-                        lower_limit=tag_info["lowerLimit"],
-                        upper_limit=tag_info["upperLimit"],
-                        expected_val=tag_info["expectedVal"],
-                        unit=tag_info["unit"],
+                    newTag = Tag(
+                        description=tag_info.get("description", ""),
+                        comp_op=tag_info.get("compareOp", ""),
+                        type=tag_info.get("type", ""),
+                        lower_limit=tag_info.get("lowerLimit", None),
+                        upper_limit=tag_info.get("upperLimit", None),
+                        expected_val=tag_info.get("expectedVal", None),
+                        unit=tag_info.get("unit", ""),
                     )
 
-    def __validate_tags(tags_file_path, schema_file_path) -> bool:
+                    self.tag_db[tag_id] = newTag
+
+
+    def __validate_tags(self, tags_file_path, schema_file_path) -> bool:
         # Load YAML schema
         with open(schema_file_path, 'r') as schema_file:
             schema = yaml.safe_load(schema_file)
@@ -58,6 +61,3 @@ class ResultAccumulator:
 
         # Validate against the schema
         jsonschema.validate(tags_data, schema)
-                    
-
-ra = ResultAccumulator("./tags.yaml")
