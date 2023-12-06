@@ -1,4 +1,4 @@
-from test_tag2 import Tag
+from server.tag import Tag
 import datetime
 import pytest
 import sys
@@ -21,7 +21,6 @@ def test_greater_than():
 
 if __name__ == "__main__":
     dt = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    # print(dt)
     html = f"--html=logs/pytest_report_{dt}.html"
     pytest.main(
         [
