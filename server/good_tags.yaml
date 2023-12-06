@@ -15,5 +15,6 @@ PV002:
 PV003:
   description: Pre startup HVIL status
   compareOp: "EQ"
+  expectedVal: True
   type: bool
   unit: "V"

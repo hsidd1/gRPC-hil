@@ -25,7 +25,7 @@ tags_yaml_path_bad = "bad_tags.yaml"
 
 # Validate the YAML data against the schema
 if validate_tags(tags_yaml_path_good, tags_schema_yaml_path):
-    print("Passed tes for good yaml")
+    print("Passed test for good yaml")
 else:
     print("Failed test for good yaml")
 if not validate_tags(tags_yaml_path_bad, tags_schema_yaml_path):
